@@ -752,31 +752,27 @@
       'hideMethod': 'fadeOut',
     }
     document.addEventListener('DOMContentLoaded', function() {
-  const playButton = document.getElementById('play');
-  const menuDisplay = document.getElementById('menu-display');
-  
-  playButton.addEventListener('click', function() {
-    menuDisplay.classList.remove('visible');
-    menuDisplay.classList.add('hidden');
-    
-    menuDisplay.classList.remove('pointer-events-all');
-    menuDisplay.classList.add('pointer-events-none');
-    
-    
-    console.log('Juego iniciado');
-  });
-  
-  // También podemos hacer lo mismo para el botón de espectador
-  const spectateButton = document.getElementById('spectate');
-  
-  spectateButton.addEventListener('click', function() {
-    menuDisplay.classList.remove('visible');
-    menuDisplay.classList.add('hidden');
-    menuDisplay.classList.remove('pointer-events-all');
-    menuDisplay.classList.add('pointer-events-none');
-    
-    console.log('Modo espectador iniciado');
-  });
+    const playButton = document.getElementById('play');
+    const spectateButton = document.getElementById('spectate');
+    const menuDisplay = document.getElementById('menu-display');
+
+    function hideMenu() {
+        menuDisplay.classList.add('hidden');
+        menuDisplay.classList.remove('visible');
+        menuDisplay.classList.add('pointer-events-none');
+        menuDisplay.classList.remove('pointer-events-all');
+        console.log('Menú ocultado');
+    }
+
+    playButton.addEventListener('click', function() {
+        hideMenu();
+        console.log('Juego iniciado');
+    });
+
+    spectateButton.addEventListener('click', function() {
+        hideMenu();
+        console.log('Modo espectador iniciado');
+    });
 });
   </script>
 
