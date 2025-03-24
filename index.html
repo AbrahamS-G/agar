@@ -552,11 +552,11 @@
           </select>
           <div id="restart" class="restart-button button"><i class="fas fa-redo-alt"></i></div>
         </div>
-        <div class="buttons-group">
-          <div id="open-settings" class="settings-button button"><i class="fas fa-cog"></i></div>
-          <div id="play" class="play-button button"><i class="fas fa-play"></i> Play!</div>
-          <div id="spectate" class="spectate-button button"><i class="fa-solid fa-eye"></i></div>
-        </div>
+<div class="buttons-group">
+  <div id="open-settings" class="settings-button button"><i class="fas fa-cog"></i></div>
+  <div id="play" class="play-button button" onclick="document.getElementById('menu-display').classList.add('hidden'); document.getElementById('menu-display').classList.remove('visible'); document.getElementById('menu-display').classList.add('pointer-events-none'); document.getElementById('menu-display').classList.remove('pointer-events-all');"><i class="fas fa-play"></i> Play!</div>
+  <div id="spectate" class="spectate-button button" onclick="document.getElementById('menu-display').classList.add('hidden'); document.getElementById('menu-display').classList.remove('visible'); document.getElementById('menu-display').classList.add('pointer-events-none'); document.getElementById('menu-display').classList.remove('pointer-events-all');"><i class="fa-solid fa-eye"></i></div>
+</div>
       </div>
     </div>
   </div>
@@ -751,6 +751,33 @@
       'showMethod': 'fadeIn',
       'hideMethod': 'fadeOut',
     }
+    document.addEventListener('DOMContentLoaded', function() {
+  const playButton = document.getElementById('play');
+  const menuDisplay = document.getElementById('menu-display');
+  
+  playButton.addEventListener('click', function() {
+    menuDisplay.classList.remove('visible');
+    menuDisplay.classList.add('hidden');
+    
+    menuDisplay.classList.remove('pointer-events-all');
+    menuDisplay.classList.add('pointer-events-none');
+    
+    
+    console.log('Juego iniciado');
+  });
+  
+  // También podemos hacer lo mismo para el botón de espectador
+  const spectateButton = document.getElementById('spectate');
+  
+  spectateButton.addEventListener('click', function() {
+    menuDisplay.classList.remove('visible');
+    menuDisplay.classList.add('hidden');
+    menuDisplay.classList.remove('pointer-events-all');
+    menuDisplay.classList.add('pointer-events-none');
+    
+    console.log('Modo espectador iniciado');
+  });
+});
   </script>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
