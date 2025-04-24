@@ -2,8 +2,20 @@
 <html lang="en">
 
 <head>
-  <style>
-    /* Import Font Awesome */
+
+  <base href="https://members.ogarx.io/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
+  <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
+  <link href="./assets/css/main.css" rel="stylesheet">
+  <!-- Toastr -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+  /* Import Font Awesome */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
 /* Import Google Fonts */
@@ -14,14 +26,14 @@
 @import url('./gallery.css');
 
 html {
-    box-sizing: border-box;
-    font-size: 16px;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 body,
@@ -34,140 +46,129 @@ h6,
 p,
 ol,
 ul {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
 }
 
 ol,
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .pointer-events-all {
-    pointer-events: all;
+  pointer-events: all;
 }
 
 .pointer-events-none {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .toast {
-    margin-top: 20px !important;
+  margin-top: 20px !important;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    font-family: 'Ubuntu';
-    overflow: hidden;
-    font-size: 18px;
-    background-color: #2A153D;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: 'Ubuntu';
+  overflow: hidden;
+  font-size: 18px;
+  background-color: #2A153D;
 }
 
 /* Game Display (Canvas) */
 #game-display {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 0;      
-    background-color: #2A153D;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;      
+  background-color: #2A153D;
 
 }
 
 /* Hud Display */
 #hud-display {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 1;
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
 }
 
 #hud-display.visible {
-    display: block;
+  display: block;
 }
 
 #hud-display.hidden {
-    display: none;
+  display: none;
 }
 
 /* Menu Display */
 #menu-display {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.3);
-    /*background-image: url('../images/bg.png');
-   background-size: cover;
-   background-position: center;
-   background-repeat: no-repeat;*/
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background-color: #2A153D;
+  /*background-image: url('../images/bg.png');
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;*/
 }
 
 #menu-display.visible {
-    display: block;
+  display: block;
 }
 
 #menu-display.hidden {
-    display: none;
+  display: none;
 }
 
 #menu-display-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    transform: translate(-50%, -50%);
-    transform-origin: center;
-    transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
 }
 
 #leaderboard-canvas {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: 2px solid rgba(0, 0, 0, 0.13);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 6px;
+  background-color: #2A153D;
+  border: 2px solid rgba(0, 0, 0, 0.13);
 }
 
 #minimap-canvas {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: 2px solid rgba(0, 0, 0, 0.13);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid #2A153D;
 }
 
 .menu-container {
-    display: grid;
-    place-items: center;
-    gap: 20px;
-    border-radius: 40px;
-    padding: 10px;
+  display: grid;
+  place-items: center;
+  gap: 20px;
+  border-radius: 40px;
+  padding: 10px;
 }
-  </style>
-  <base href="https://members.ogarx.io/">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
-  <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
-  <!-- Toastr -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-
+</style>
 <body>
   <!-- Game Display -->
   <canvas id="game-display"></canvas>
