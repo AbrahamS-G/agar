@@ -1,261 +1,152 @@
+
 <!doctype html>
-<html lang="en">
-
+<html>
 <head>
-  <base href="https://members.ogarx.io/">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
-  <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
-  <link href="./assets/css/main.css" rel="stylesheet">
-  <!-- Toastr -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const BOTTOM_BANNER_HEIGHT = '90px';
+        document.documentElement.style.setProperty('--bottom-banner-height', BOTTOM_BANNER_HEIGHT);
+    </script>
+
+    
+    <script>window.aiptag=window.aiptag||{cmd:[]},aiptag.cmd.display=aiptag.cmd.display||[],aiptag.cmd.player=aiptag.cmd.player||[],aiptag.cmp={show:!0,position:"min",button:!1,buttonText:"Privacy settings",buttonPosition:"bottom-right"}</script>
+    <script async src="//api.adinplay.com/libs/aiptag/pub/MIN/agar.io/tag.min.js"></script>
+
+    <script>aiptag.cmd.player.push(function(){aiptag.adplayer=new aipPlayer({AD_WIDTH:960,AD_HEIGHT:540,AD_DISPLAY:"fullscreen",LOADING_TEXT:"loading advertisement",PREROLL_ELEM:function(){return document.getElementById("preroll")},AIP_COMPLETE:function(e){document.dispatchEvent(new Event("adCompleted"))}})})</script>
+
+    <style>#background,#canvas{height:calc(100% - var(--bottom-banner-height))!important}</style>
+
+<base href="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Play online with players around the world as you try to become the biggest cell of them all!
+Control your tiny cell and eat other players to grow larger! But watch out: players bigger than you will be trying to make you their lunch. Survive and eat long enough to become the biggest cell in the game!
+Play online in free-for-all action and use splitting, shrinking and dodging tactics to catch other players - or avoid them! Use a variety of special secret skins with the right username!">
+<meta name="keywords" content="agario, agar, io, cell, cells, virus, bacteria, blob, game, games, web game, html5, fun, flash">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="minimal-ui,width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="fb:app_id" content="677505792353827"/>
+<meta property="og:title" content="Agar.io "/>
+<meta property="og:description" content="Play online with players around the world as you try to become the biggest cell of them all!
+Control your tiny cell and eat other players to grow larger! But watch out: players bigger than you will be trying to make you their lunch. Survive and eat long enough to become the biggest cell in the game!
+Play online in free-for-all action and use splitting, shrinking and dodging tactics to catch other players - or avoid them! Use a variety of special secret skins with the right username!"/>
+<meta property="og:url" content="https://agar.io/"/>
+<meta property="og:image" content="https://agar.io/img/1200x630.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:type" content="website"/>
+<meta property="al:ios:url" content="com.miniclip.agar.io://">
+<meta property="al:ios:app_store_id" content="995999703">
+<meta property="al:ios:app_name" content="Agar.io">
+<meta property="al:android:url" content="com.miniclip.agar.io://">
+<meta property="al:android:app_name" content="Agar.io">
+<meta property="al:android:package" content="com.miniclip.agar.io">
+<title>Agar.io</title>
+<link rel="canonical" href="https://agar.io/"/>
+<link id="favicon" rel="icon" type="image/png" href="favicon-32x32.png"/>
+<script>
+const EnvConfig = {
+	env_local: "false",
+	env_production: "true",
+    fb_app_id: "677505792353827",
+    ga_trackingId: "UA-62402209-1",
+    google_client_id: "686981379285-oroivr8u2ag1dtm3ntcs6vi05i3cpv0j.apps.googleusercontent.com",
+    gift_object_id: "1666759370208394",
+
+    master_url: "https://webbouncer-live-v8-0.agario.miniclippt.com",
+    socketEndpoint: "",
+    xsolla_endpoint: "https://payments.agario.miniclippt.com",
+    fb_endpoint: "https://rewardcallback-web-live.agario.miniclippt.com/payments/facebook",
+    game_url: "http://agar.io",
+    supersonic_app_key: "416358b5",
+    tap_research_api_key: "f2b4fd7d3dd1a7d871d79cdb1330c5ef",
+    interstitial_url: "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/116850162/Agario_Adsense_For_Games&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=http%3A%2F%2Fagar.io&correlator=[timestamp]",
+    // =======================================
+    // Configurations
+    config_url: "https://configs-web.agario.miniclippt.com/live/v15",
+    custom_skins_url: "https://configs.agario.miniclippt.com/live/custom_skins/",
+    load_local_configuration: "false",
+    configID: "1317",
+	configVersion: "15",
+
+	//Bacon
+	bacon_url: "https://bacon.agario.miniclippt.com/v1.0",
+
+    //Miniclip SDK - Analytics
+    goliathUrl: "",
+    apiKey: "34a7fb2b-1a81-4064-a448-d39e445f52f5",
+    checksumKey: "3da29393-b5ac-4cc9-aad6-c6af68b6ca1e",
+    analyticsEnv: "production",
+
+    //New Relic
+    NR_licenseKey: "",
+    NR_applicationID: "",
+
+    datadog_appid: 'agar.io.web',
+    datadog_env: 'production',
+
+    applixirGameId: '4534',
+    applixirZoneId: '2497',
+    applixirDevId: '3312',
+
+    currentEnv: "production"
+}
+window.EnvConfig = EnvConfig;
+</script>
+<script type="text/javascript">window.presetGameMode=":ffa"</script>
+<script type="text/javascript">var googletag=googletag||{};googletag.cmd=googletag.cmd||[],window.googletag=googletag</script>
+
+
+<script>!function(e,n,t,c,o,a,f){e.fbq||(o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),(o.push=o).loaded=!0,o.version="2.0",o.queue=[],(a=n.createElement(t)).async=!0,a.src="//connect.facebook.net/en_US/fbevents.js",(f=n.getElementsByTagName(t)[0]).parentNode.insertBefore(a,f))}(window,document,"script"),fbq("init","859937640783233"),fbq("track","PageView")</script>
+<noscript><img class="pixel-ad" style="display:none" src="https://www.facebook.com/tr?id=859937640783233&ev=PageView&noscript=1"/></noscript>
+
+<script type="text/javascript">function getUrlVars(){for(var r,e=[],i=window.location.href.slice(window.location.href.indexOf("?")+1).split("&"),n=0;n<i.length;n++)r=i[n].split("="),e.push(r[0]),e[r[0]]=r[1];return e}window.isChrome=/chrome/.test(navigator.userAgent.toLowerCase()),window.ASSETS_ROOT="";var queryVars=getUrlVars();null!=queryVars.v&&(window.location="/v"+queryVars.v);var rpx_params={kw:"",visitor:{},inventory:{}};window.___gcfg={lang:"en-US",parsetags:"explicit"}</script>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:700" rel="stylesheet">
+<link href="css/styles.d8847cfc34ebe33e76e6.css" rel="stylesheet">
+<script type="text/javascript" src="bundle_commons.b468163ba6df4fd18aa2.js"></script>
+<script type="text/javascript" src="bundle_start.d8847cfc34ebe33e76e6.js"></script>
+<script type="text/javascript" src="mc/agario.js?v=ad018da534367133c395114792773d74"></script>
+
+    <script>!function(e,n,o,c,t,i,a){e[o]=e[o]||function(){2===arguments.length&&(e[o].q=e[o].q||[]).push(arguments)},e.MCApolloPageView=e[o],i=n.createElement("script"),a=n.getElementsByTagName("script")[0],i.async=0,e.mc_ap_pv_c_n="agar.io",i.src="//apollo.miniclip.com/v1/js",a.parentNode.insertBefore(i,a)}(window,document,"Apollo")</script>
+
 </head>
-
 <body>
-  <!-- Game Display -->
-  <canvas id="game-display"></canvas>
+<main style="display:none">
+<h1></h1>
+<p>The smash hit game! Control your cell and eat other players to grow larger! Play with millions of players around the world and try to become the biggest cell of all!</p>
+</main>
 
-  <!-- Hud Display -->
-  <div id="hud-display" class="pointer-events-none visible">
-    <canvas id="leaderboard-canvas" width="200">
-  </div>
-  <canvas id="minimap-canvas"></canvas>
-  </div>
+<div id="applixir_blocker" style="display:none"></div>
+<div id="applixir_vanishing_div" hidden>
+    <iframe id="applixir_parent"></iframe>
+</div>
 
-  <!-- Menu Display -->
-  <div id="menu-display" class="pointer-events-all visible">
-    <div id="menu-display-center">
-      <div class="menu-container">
-        <img class="logo" src="./assets/images/ogarx.png">
-        <div class="player-skins">
-          <div class="gallery-button button">
-            Skins
-            <div class="plus"></div>
-          </div>
-        </div>
-        <div class="player-inputs">
-          <input id="tag" class="form-control input-tag" placeholder="Tag" maxlength="5">
-          <input id="nickname" class="form-control input-nickname" placeholder="Nickname" maxlength="15">
-        </div>
-        <div class="player-inputs">
-          <input id="skin1" class="form-control input-nickname" placeholder="Skin 1 url">
-          <input id="skin2" class="form-control input-nickname" placeholder="Skin 2 url">
-        </div>
-        <div class="server-select">
-          <select class="server-select-input" id="servers">
-            <option value="wss://eu.senpa.io:2001/" selected>[EU FFA] Nemesis</option>
-            <option value="wss://us.senpa.io:2001/">[NA FFA] Heavenly</option>
-          </select>
-          <div id="restart" class="restart-button button"><i class="fas fa-redo-alt"></i></div>
-        </div>
-        <div class="buttons-group">
-          <div id="open-settings" class="settings-button button"><i class="fas fa-cog"></i></div>
-          <div id="play" class="play-button button"><i class="fas fa-play"></i> Play!</div>
-          <div id="spectate" class="spectate-button button"><i class="fa-solid fa-eye"></i></div>
-        </div>
-        <a href="https://www.buymeacoffee.com/coderrenii"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=coderrenii&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>      </div>
-    </div>
-  </div>
+<div id="fb-root"></div>
+<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||((c=e.createElement(t)).id=n,c.src="//connect.facebook.net/en_US/sdk.js",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk")</script>
+<div id="background"></div>
+<canvas id="canvas"></canvas>
 
-  <!-- Settings Display -->
-   <div id="settings-display" class="pointer-events-all hidden">
-      <div id="settings-display-center">
-        <div id="settings">
-          <div id="settings-close-btn">✘</div>
-          <div id="settings-container">
-            <div class="tabs">
-              <div class="tab active" data-tab="game-settings"><i class="fas fa-cog"></i>Game</div>
-              <div class="tab" data-tab="controls"><i class="fas fa-keyboard"></i>Controls</div>
-              <div class="tab" data-tab="mouse"><i class="fas fa-mouse"></i>Mouse</div>
-            </div>
-            <div class="tabs-container">
-              <div class="tab-content active" id="game-settings">
-                <div class="option">
-                  <span>Animation delay: <span class="slider-value" id="animationDelayValue">144</span></span>
-                  <input type="range" class="setting-slider" id="animationDelay" min="10" max="200" value="140">
-                </div>
-                <div class="option">
-                  <span>Cell transparency: <span class="slider-value" id="cellTransparencyValue">1</span></span>
-                  <input type="range" class="setting-slider" id="cellTransparency" min="0.2" max="1" value="1" step="0.1">
-                </div>
-                <div class="option">
-                  <span>Nicknames:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showNicknames">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Mass:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showMass">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Skins:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showSkins">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Grid:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showGrid">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Sectors:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showSectors">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show pellets:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showPellets">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Cursor tracking:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="cursorTracking">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Multibox auto switch on death:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="multiboxAutoSwitchOnDeath">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Debug mode:</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showDebug">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-              <div class="tab-content" id="controls">
-                <div class="option">
-                  <span>Macro feed:</span>
-                  <input id="macroFeedKey" class="hotkey-input" value="KeyZ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Split:</span>
-                  <input id="splitKey" class="hotkey-input" value="Space" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Doublesplit:</span>
-                  <input id="doubleSplitKey" class="hotkey-input" value="KeyA" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Tricksplit:</span>
-                  <input id="tricksplitKey" class="hotkey-input" value="ShiftLeft" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Switch player:</span>
-                  <input id="switchPlayerkey" class="hotkey-input" value="Tab" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Bot split:</span>
-                  <input id="botSplit" class="hotkey-input" value="KeyQ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Bot feed:</span>
-                  <input id="botFeed" class="hotkey-input" value="KeyW" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Cell pause:</span>
-                  <input id="cellPause" class="hotkey-input" value="KeyR" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-              </div>
-              <div class="tab-content" id="mouse">
-                <div class="option">
-                  <span>Left click:</span>
-                  <select class="mouseActions" id="leftClick">
-                    <option value="noAction">No action</option>
-                    <option value="macroFeed">Macro Feed</option>
-                    <option value="split">Split</option>
-                    <option value="doubleSplit">Doublesplit</option>
-                    <option selected value="tricksplit">Tricksplit</option>
-                    <option value="switchPlayer">Switch player</option>
-                    <option value="magicSplit">Switch player</option>
-                  </select>
-                </div>
-                <div class="option">
-                  <span>Middle click:</span>
-                  <select class="mouseActions" id="middleClick">
-                    <option selected ="noAction">No action</option>
-                    <option value="macroFeed">Macro Feed</option>
-                    <option value="split">Split</option>
-                    <option value="doubleSplit">Doublesplit</option>
-                    <option value="tricksplit">Tricksplit</option>
-                    <option value="switchPlayer">Switch player</option>
-                    <option value="magicSplit">Switch player</option>
-                  </select>
-                </div> 
-                <div class="option">
-                  <span>Right click:</span>
-                  <select class="mouseActions" id="rightClick">
-                    <option selected value="noAction">No action</option>
-                    <option value="macroFeed">Macro Feed</option>
-                    <option value="split">Split</option>
-                    <option value="doubleSplit">Doublesplit</option>
-                    <option value="tricksplit">Tricksplit</option>
-                    <option value="switchPlayer">Switch player</option>
-                    <option value="magicSplit">Switch player</option>
-                  </select>
-                </div> 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-   </div>
+<div id="home">
+</div>
 
-  <!-- Gallery Display -->
-  <div id="gallery-display" class="pointer-events-all hidden">
-    <div id="gallery-display-center">
-      <div id="gallery">
-        <div id="settings-close-btn">✘</div>
-      </div>
-    </div>
-  </div>
+<div class="font-family">&nbsp;</div>
+<script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 
-  <script>
-        toastr.options = {
-        'closeButton': true,
-        'debug': false,
-        'newestOnTop': false,
-        'progressBar': true,
-        'positionClass': 'toast-bottom-left',
-        'preventDuplicates': false,
-        'showDuration': '1000',
-        'hideDuration': '1000',
-        'timeOut': '5000',
-        'extendedTimeOut': '1000',
-        'showEasing': 'swing',
-        'hideEasing': 'linear',
-        'showMethod': 'fadeIn',
-        'hideMethod': 'fadeOut',
-    }
-  </script>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<div id="cf-turnstile" data-sitekey="0x4AAAAAAACWFDYFT_opGqX8"></div>
 
-  <script src="https://unpkg.com/gifler@latest/gifler.min.js"></script>
-  <script src="./assets/js/main.bundle.js"></script>
+<div id="div-gpt-ad-1528792429656-0" class="pixel-ad" style="display:none"></div>
+
+
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=e34c6330-b746-4fbd-a9f7-642ee8fbed1c"></script>
+
+
+<script src="agario.core.js?v=58fad2306ad5a0113f78cc21443052a2"></script>
+<script type="text/javascript" src="bundle_end.cf164fea0769e85416c2.js"></script>
+
+
+<script src="https://www.google-analytics.com/cx/api.js?experiment=mpvbHnN-QF2vR9SGzcIcRQ"></script>
+<script type="text/javascript" src="https://cdn.applixir.com/applixir.sdk3.0m.js"></script>
 
 </body>
 </html>
