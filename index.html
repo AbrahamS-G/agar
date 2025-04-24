@@ -881,24 +881,6 @@
                 </label>
               </div>
               <div class="option">
-  <span>Color de fondo del mapa:</span>
-  <input type="color" id="backgroundColorPicker" value="#2A153D">
-</div>
-
-<!-- Agregado al final del <script> existente -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // ... (ya existente)
-
-    // Nuevo: Cambio de color de fondo
-    const colorPicker = document.getElementById('backgroundColorPicker');
-    if (colorPicker) {
-      colorPicker.addEventListener('input', function () {
-        document.body.style.backgroundColor = this.value;
-      });
-    }
-  });
-</script>
 
             </div>
             <div class="tab-content" id="controls">
