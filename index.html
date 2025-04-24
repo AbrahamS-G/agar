@@ -2,661 +2,260 @@
 <html lang="en">
 
 <head>
-    <!-- <base href="http://127.0.0.1:5501/dist/"> -->
-    <base href="http://ogarx.io">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ogar✘ - v2</title>
-    <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
-    <link href="./assets/css/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  </head>
-  <head>
-    <base href="https://ogarx.io/">
-    <base href="https://members.ogarx.io/">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
-    <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
-    <link href="./assets/css/main.css" rel="stylesheet">
-    <!-- Toastr -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  </head>
+  <base href="https://members.ogarx.io/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
+  <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
+  <link href="./assets/css/main.css" rel="stylesheet">
+  <!-- Toastr -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
 <body>
-    <!-- Game Display -->
-    <canvas id="game-display"></canvas>
-  
-    <!-- Hud Display -->
-    <div id="hud-display" class="pointer-events-none visible">
-      <div id="leaderboard" class="visible">
-        <h2>Leaderboard</h2>
-        <div id="leaderboard-entries">
-          <div class="leaderboard-player">1. <span class="mass">[125.0k]</span> Ryu!</div>
-          <div class="leaderboard-player">2. <span class="mass">[95.4k]</span> ZayteK</div>
-          <div class="leaderboard-player">3. <span class="mass">[85.3k]</span> Element</div>
-          <div class="leaderboard-player">4. <span class="mass">[70.8k]</span> Sri</div>
-          <div class="leaderboard-player">5. <span class="mass">[65.0k]</span> Mob</div>
-          <div class="leaderboard-player">6. <span class="mass">[57.6k]</span> Ging</div>
-          <div class="leaderboard-player">7. <span class="mass">[45.9k]</span> Ring</div>
-          <div class="leaderboard-player">8. <span class="mass">[38.5k]</span> Ren</div>
-          <div class="leaderboard-player">9. <span class="mass">[30.4k]</span> Shrkawy</div>
-          <div class="leaderboard-player">10. <span class="mass">[20.0k]</span> Cagon fun</div>
-        </div>
-      </div>
-  
-      <div id="left-bottom">
-        <!-- Chatbox -->
-        <div id="chatbox" class="pointer-events-all visible">
-          <div id="messages"></div>
-          <input type="text" id="chat-input" placeholder="Type a message...">
-        </div>
-  
-        <!-- Stats -->
-        <div id="stats" class="visible">
-          <!--<div id="mass" class="box">Mass: 38.5k</div>
-          <div id="score" class="box">Score: 38.5k</div>-->
-  
-          <div id="fps" class="box">FPS: 144</div>
-  
-          <div id="mainTabStatus" class="box">
-            <span class="tabCount">Tab 1</span>
-            <i class="fas fa-times"></i> Disconnected
+  <!-- Game Display -->
+  <canvas id="game-display"></canvas>
+
+  <!-- Hud Display -->
+  <div id="hud-display" class="pointer-events-none visible">
+    <canvas id="leaderboard-canvas" width="200">
+  </div>
+  <canvas id="minimap-canvas"></canvas>
+  </div>
+
+  <!-- Menu Display -->
+  <div id="menu-display" class="pointer-events-all visible">
+    <div id="menu-display-center">
+      <div class="menu-container">
+        <img class="logo" src="./assets/images/ogarx.png">
+        <div class="player-skins">
+          <div class="gallery-button button">
+            Skins
+            <div class="plus"></div>
           </div>
-  
-          <div id="childTabStatus" class="box">
-            <span class="tabCount">Tab 2</span>
-            <i class="fas fa-times"></i> Disconnected
-          </div>
-  
-          <div id="serverRestart" class="box"><i class="fa-solid fa-rotate-right"></i> 0 min</div>
         </div>
-      </div>
-      
-    <!-- Minimap -->
-    <div id="right-bottom">
-        <canvas id="minimap" class="visible"></canvas>
-      </div>
-  
+        <div class="player-inputs">
+          <input id="tag" class="form-control input-tag" placeholder="Tag" maxlength="5">
+          <input id="nickname" class="form-control input-nickname" placeholder="Nickname" maxlength="15">
+        </div>
+        <div class="player-inputs">
+          <input id="skin1" class="form-control input-nickname" placeholder="Skin 1 url">
+          <input id="skin2" class="form-control input-nickname" placeholder="Skin 2 url">
+        </div>
+        <div class="server-select">
+          <select class="server-select-input" id="servers">
+            <option value="wss://eu.senpa.io:2001/" selected>[EU FFA] Nemesis</option>
+            <option value="wss://us.senpa.io:2001/">[NA FFA] Heavenly</option>
+          </select>
+          <div id="restart" class="restart-button button"><i class="fas fa-redo-alt"></i></div>
+        </div>
+        <div class="buttons-group">
+          <div id="open-settings" class="settings-button button"><i class="fas fa-cog"></i></div>
+          <div id="play" class="play-button button"><i class="fas fa-play"></i> Play!</div>
+          <div id="spectate" class="spectate-button button"><i class="fa-solid fa-eye"></i></div>
+        </div>
+        <a href="https://www.buymeacoffee.com/coderrenii"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=coderrenii&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>      </div>
     </div>
-  
-    <!-- Menu Display -->
-    <div id="menu-display" class="pointer-events-all visible">
-      <div id="menu-center">
-        <h1 style="font-size: 40px; text-align: center; margin-bottom: 20px;">Ogar✘</h1>
-        <div id="menu">
-          <div id="tabs">
-            <div class="tab active" data-tab-content="start"><i class="fas fa-home"></i> Start</div>
-            <div class="tab" data-tab-content="settings"><i class="fas fa-cog"></i> Settings</div>
-            <div class="tab" data-tab-content="theme"><i class="fas fa-tint"></i> Theme</div>
-            <div class="tab" data-tab-content="controls"><i class="fas fa-keyboard"></i> Controls</div>
-            <div class="tab" data-tab-content="restore"><i class="fas fa-undo"></i> Restore</div>
-          </div>
-  
-          <!-- Start -->
-          <div id="start" class="tabs-content active">
-            <div class="subtabs">
-              <div class="subtab active" data-subtab-content="play">Play</div>
-              <div class="subtab" data-subtab-content="gallery">Gallery</div>
+  </div>
+
+  <!-- Settings Display -->
+   <div id="settings-display" class="pointer-events-all hidden">
+      <div id="settings-display-center">
+        <div id="settings">
+          <div id="settings-close-btn">✘</div>
+          <div id="settings-container">
+            <div class="tabs">
+              <div class="tab active" data-tab="game-settings"><i class="fas fa-cog"></i>Game</div>
+              <div class="tab" data-tab="controls"><i class="fas fa-keyboard"></i>Controls</div>
+              <div class="tab" data-tab="mouse"><i class="fas fa-mouse"></i>Mouse</div>
             </div>
-  
-            <!-- Play -->
-            <div id="play" class="subtabs-content active">
-              <div class="player-container">
-                <!-- Game modes -->
-                <div class="game-modes">
-                  <div class="mode selected" data-mode="ffa">
-                    <img class="mode-img" src="./assets/images/modes/ffa.png">
-                    <div class="mode-name">Free For All</div>
-                  </div>
-                  <div class="mode" data-mode="exp">
-                    <img class="mode-img" src="./assets/images/modes/exp.png">
-                    <div class="mode-name">Experimental</div>
-                  </div>
-                  <div class="mode" data-mode="teams">
-                    <img class="mode-img" src="./assets/images/modes/teams.png">
-                    <div class="mode-name">Teams</div>
-                  </div>
-                  <div class="mode" data-mode="party">
-                    <img class="mode-img" src="./assets/images/modes/party.png">
-                    <div class="mode-name">Party</div>
-                  </div>
-                  <div class="mode" data-mode="instant">
-                    <img class="mode-img" src="./assets/images/modes/instant.png">
-                    <div class="mode-name">Instant</div>
-                  </div>
-                  <div class="mode" data-mode="megasplit">
-                    <img class="mode-img" src="./assets/images/modes/megasplit.png">
-                    <div class="mode-name">Megasplit</div>
-                  </div>
-                </div>
-  
-                <div class="servers">
-                  <select class="select" id="regions">
-                    <!--<option value="eu" selected>Europe</option>
-                    <option value="na">North America</option>-->
-                  </select>
-                  <select class="select" id="servers">
-                    <!--<option value="wss://eu.senpa.io:2001/" selected>Nemesis</option>
-                    <option value="wss://us.senpa.io:2001/">Heavenly</option>-->
-                  </select>
-                  <input type="text" id="team" class="input-team" placeholder="Team" maxlength="5">
-                </div>
-  
-                <!-- Players -->
-                <div class="players">
-                  <div class="player player-1">
-                    <div class="skin">
-                      <img src="https://i.imgur.com/FEMjYXK.png">
-                    </div>
-                    <input type="text" id="nickname1" class="input-nickname" placeholder="Nickname 1" maxlength="15">
-                  </div>
-  
-                  <div class="player player-2">
-                    <input type="text" id="nickname2" class="input-nickname" placeholder="Nickname 2" maxlength="15">
-                    <div class="skin">
-                      <img src="https://i.imgur.com/FEMjYXK.png">
-                    </div>
-                  </div>
-                </div>
-  
-                <!-- Player buttons -->
-                <div class="player-buttons">
-                  <div id="play" class="button"><i class="fas fa-play spacer"></i> Play</div>
-                  <div id="spectate" class="button"><i class="fa-solid fa-eye spacer"></i> Spectate</div>
-                  <div id="reconnect" class="button reconnect"><i class="fas fa-redo-alt spacer"></i> Reconnect</div>
-                </div>
-  
-                <!-- Info text -->
-                <div class="info-text">
-                  <span>v3.1.1</span>
-                  <span class="spacer">|</span>
-                  <span><a href="privacy.txt">Privacy Policy</a></span>
-                  <span class="spacer">|</span>
-                  <span><a href="terms.txt">Terms of Service</a></span>
-                </div>
-  
-              </div>
-            </div>
-  
-            <!-- Gallery -->
-            <div id="gallery" class="subtabs-content">
-              <div class="scrollable-container">
-                <div id="custom-skins" class="gallery">
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Settings -->
-          <div id="settings" class="tabs-content">
-            <div class="subtabs">
-              <div class="subtab active" data-subtab-content="gameplay">Gameplay</div>
-              <div class="subtab" data-subtab-content="graphics">Graphics</div>
-              <div class="subtab" data-subtab-content="cells">Cells</div>
-              <div class="subtab" data-subtab-content="elements">Elements</div>
-              <div class="subtab" data-subtab-content="camera">Camera</div>
-              <div class="subtab" data-subtab-content="helpers">Helpers</div>
-            </div>
-  
-            <!-- Gameplay -->
-            <div id="gameplay" class="subtabs-content active">
-              <div class="options scrollable-container">
+            <div class="tabs-container">
+              <div class="tab-content active" id="game-settings">
                 <div class="option">
-                  <span>Multibox Camera in center</span>
+                  <span>Animation delay: <span class="slider-value" id="animationDelayValue">144</span></span>
+                  <input type="range" class="setting-slider" id="animationDelay" min="10" max="200" value="140">
+                </div>
+                <div class="option">
+                  <span>Cell transparency: <span class="slider-value" id="cellTransparencyValue">1</span></span>
+                  <input type="range" class="setting-slider" id="cellTransparency" min="0.2" max="1" value="1" step="0.1">
+                </div>
+                <div class="option">
+                  <span>Nicknames:</span>
                   <label class="toggle-switch">
-                    <input type="checkbox" id="mbCenterCamera">
+                    <input type="checkbox" id="showNicknames">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Multibox Indicator enabled</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="mbIndicatorEnabled">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Multibox auto switch on death</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="mbAutoSwitchOnDeath">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Graphics -->
-            <div id="graphics" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Pixels density <span id="pixelsDensityValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="pixelsDensity" class="input-rangeSlider" min="0.5" max="1.5" step="0.25" value="1">
-                </div>
-              </div>
-            </div>
-  
-            <!-- Cells -->
-            <div id="cells" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Animation delay <span id="animationDelayValue" class="rangeSliderValue">140</span></span>
-                  <input type="range" id="animationDelay" class="input-rangeSlider" min="10" max="300" step="1" value="140">
-                </div>
-                <div class="option">
-                  <span>Vanilla skins</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="vanillaSkins">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Custom skins</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="customSkins">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Gif skins</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="gifSkins">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show names</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showNames">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Names stroke</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="namesStroke">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show mass</span>
+                  <span>Mass:</span>
                   <label class="toggle-switch">
                     <input type="checkbox" id="showMass">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Mass stroke</span>
+                  <span>Skins:</span>
                   <label class="toggle-switch">
-                    <input type="checkbox" id="massStroke">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Elements -->
-            <div id="elements" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Show HUD</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showHud">
+                    <input type="checkbox" id="showSkins">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Show Leaderboard</span>
+                  <span>Grid:</span>
                   <label class="toggle-switch">
-                    <input type="checkbox" id="showLeaderboard">
+                    <input type="checkbox" id="showGrid">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Show Minimap</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showMinimap">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show Chatbox</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showChatbox">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show Stats</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showStats">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show Borders</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="showBorders">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Show Sectors</span>
+                  <span>Sectors:</span>
                   <label class="toggle-switch">
                     <input type="checkbox" id="showSectors">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Show Food</span>
+                  <span>Show pellets:</span>
                   <label class="toggle-switch">
-                    <input type="checkbox" id="showFood">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Camera -->
-            <div id="camera" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Zoom speed <span id="zoomSpeedValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="zoomSpeed" class="input-rangeSlider" min="0.75" max="0.99" step="0.01" value="0.9">
-                </div>
-                <div class="option">
-                  <span>Camera speed <span id="cameraSpeedValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="cameraSpeed" class="input-rangeSlider" min="1" max="30" step="1" value="30">
-                </div>
-              </div>
-            </div>
-  
-            <!-- Helpers -->
-            <div id="helpers" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Mouse tracker</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="mouseTracker">
+                    <input type="checkbox" id="showPellets">
                     <span class="slider"></span>
                   </label>
                 </div>
                 <div class="option">
-                  <span>Split indicator</span>
+                  <span>Cursor tracking:</span>
                   <label class="toggle-switch">
-                    <input type="checkbox" id="splitIndicator">
+                    <input type="checkbox" id="cursorTracking">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="option">
+                  <span>Multibox auto switch on death:</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="multiboxAutoSwitchOnDeath">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="option">
+                  <span>Debug mode:</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="showDebug">
                     <span class="slider"></span>
                   </label>
                 </div>
               </div>
-            </div>
-          </div>
-  
-          <!-- Theme -->
-          <div id="theme" class="tabs-content">
-            <div class="subtabs">
-              <div class="subtab active" data-subtab-content="cells">Cells</div>
-              <div class="subtab" data-subtab-content="food">Food</div>
-              <div class="subtab" data-subtab-content="virus">Virus</div>
-              <div class="subtab" data-subtab-content="border">Border</div>
-              <div class="subtab" data-subtab-content="background">Background</div>
-              <div class="subtab" data-subtab-content="cursors">Cursors</div>
-            </div>
-  
-            <!-- Cells -->
-            <div id="cells" class="subtabs-content active">
-              <div class="options scrollable-container">
+              <div class="tab-content" id="controls">
                 <div class="option">
-                  <span>Cell opacity <span id="cellOpacityValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="cellOpacity" class="input-rangeSlider" min="0.2" max="1" step="0.1" value="1">
+                  <span>Macro feed:</span>
+                  <input id="macroFeedKey" class="hotkey-input" value="KeyZ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Names color</span>
-                  <div class="colorPicker">
-                    <div id="namesColor"></div>
-                  </div>
+                  <span>Split:</span>
+                  <input id="splitKey" class="hotkey-input" value="Space" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Names stroke color</span>
-                  <div class="colorPicker">
-                    <div id="namesStrokeColor"></div>
-                  </div>
+                  <span>Doublesplit:</span>
+                  <input id="doubleSplitKey" class="hotkey-input" value="KeyA" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Mass color</span>
-                  <div class="colorPicker">
-                    <div id="massColor"></div>
-                  </div>
+                  <span>Tricksplit:</span>
+                  <input id="tricksplitKey" class="hotkey-input" value="ShiftLeft" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Mass stroke color</span>
-                  <div class="colorPicker">
-                    <div id="massStrokeColor"></div>
-                  </div>
+                  <span>Switch player:</span>
+                  <input id="switchPlayerkey" class="hotkey-input" value="Tab" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Names size <span id="namesSizeValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="namesSize" class="input-rangeSlider" min="0.5" max="3" step="0.1" value="1">
+                  <span>Bot split:</span>
+                  <input id="botSplit" class="hotkey-input" value="KeyQ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Mass size <span id="massSizeValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="massSize" class="input-rangeSlider" min="0.5" max="3" step="0.1" value="1">
+                  <span>Bot feed:</span>
+                  <input id="botFeed" class="hotkey-input" value="KeyW" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="option">
-                  <span>Multibox Indicator</span>
-                  <select class="select" id="mbIndicator">
-                    <option value="mbRings">Rings</option>
-                    <option value="mbFilledColor">Filled color</option>
+                  <span>Cell pause:</span>
+                  <input id="cellPause" class="hotkey-input" value="KeyR" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                </div>
+              </div>
+              <div class="tab-content" id="mouse">
+                <div class="option">
+                  <span>Left click:</span>
+                  <select class="mouseActions" id="leftClick">
+                    <option value="noAction">No action</option>
+                    <option value="macroFeed">Macro Feed</option>
+                    <option value="split">Split</option>
+                    <option value="doubleSplit">Doublesplit</option>
+                    <option selected value="tricksplit">Tricksplit</option>
+                    <option value="switchPlayer">Switch player</option>
+                    <option value="magicSplit">Switch player</option>
                   </select>
                 </div>
                 <div class="option">
-                  <span>Multibox active indicator</span>
-                  <div class="colorPicker">
-                    <div id="mbActiveIndicator"></div>
-                  </div>
-                </div>
+                  <span>Middle click:</span>
+                  <select class="mouseActions" id="middleClick">
+                    <option selected ="noAction">No action</option>
+                    <option value="macroFeed">Macro Feed</option>
+                    <option value="split">Split</option>
+                    <option value="doubleSplit">Doublesplit</option>
+                    <option value="tricksplit">Tricksplit</option>
+                    <option value="switchPlayer">Switch player</option>
+                    <option value="magicSplit">Switch player</option>
+                  </select>
+                </div> 
                 <div class="option">
-                  <span>Multibox inactive indicator</span>
-                  <div class="colorPicker">
-                    <div id="mbInactiveIndicator"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Multibox Ring Width <span id="mbRingWidthValue" class="rangeSliderValue">20</span></span>
-                  <input type="range" id="mbRingWidth" class="input-rangeSlider" min="2" max="100" value="20">
-                </div>
+                  <span>Right click:</span>
+                  <select class="mouseActions" id="rightClick">
+                    <option selected value="noAction">No action</option>
+                    <option value="macroFeed">Macro Feed</option>
+                    <option value="split">Split</option>
+                    <option value="doubleSplit">Doublesplit</option>
+                    <option value="tricksplit">Tricksplit</option>
+                    <option value="switchPlayer">Switch player</option>
+                    <option value="magicSplit">Switch player</option>
+                  </select>
+                </div> 
               </div>
             </div>
-  
-            <!-- Food -->
-            <div id="food" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Rainbow Food</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="rainbowFood">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Food color</span>
-                  <div class="colorPicker">
-                    <div id="foodColor"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Virus -->
-            <div id="virus" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Virus glow</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="virusGlow">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="option">
-                  <span>Virus color</span>
-                  <div class="colorPicker">
-                    <div id="virusColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Virus stroke color</span>
-                  <div class="colorPicker">
-                    <div id="virusStrokeColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Virus glow color</span>
-                  <div class="colorPicker">
-                    <div id="virusGlowColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Virus opacity <span id="virusOpacityValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="virusOpacity" class="input-rangeSlider" min="0.2" max="1" step="0.1" value="1">
-                </div>
-                <div class="option">
-                  <span>Virus border width <span id="virusBorderWidthValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="virusBorderWidth" class="input-rangeSlider" min="1" max="25" step="1" value="8">
-                </div>
-                <div class="option">
-                  <span>Virus glow distance <span id="virusGlowDistanceValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="virusGlowDistance" class="input-rangeSlider" min="1" max="100" step="1" value="40">
-                </div>
-                <div class="option">
-                  <span>Virus glow strength <span id="virusGlowStrengthValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="virusGlowStrength" class="input-rangeSlider" min="1" max="10" step="1" value="5">
-                </div>
-                <div class="option">
-                  <span>Virus scale factor <span id="virusScaleFactorValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="virusScaleFactor" class="input-rangeSlider" min="1" max="3" step="0.1" value="1.5">
-                </div>
-              </div>
-            </div>
-  
-            <!-- Border -->
-            <div id="border" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Border color</span>
-                  <div class="colorPicker">
-                    <div id="borderColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Border width <span id="borderWidthValue" class="rangeSliderValue">1</span></span>
-                  <input type="range" id="borderWidth" class="input-rangeSlider" min="10" max="200" step="1" value="25">
-                </div>
-              </div>
-            </div>
-  
-            <!-- Background -->
-            <div id="background" class="subtabs-content">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Background color</span>
-                  <div class="colorPicker">
-                    <div id="backgroundColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Grid color</span>
-                  <div class="colorPicker">
-                    <div id="gridColor"></div>
-                  </div>
-                </div>
-                <div class="option">
-                  <span>Sectors text color</span>
-                  <div class="colorPicker">
-                    <div id="sectorsTextColor"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Cursors -->
-            <div id="cursors" class="subtabs-content">
-              <div id="loaded_cursors" class="cursors scrollable-container">
-              </div>
-            </div>
-  
           </div>
-  
-          <!-- Controls -->
-          <div id="controls" class="tabs-content">
-            <div class="subtabs">
-              <div class="subtab active" data-subtab-content="keyboard">Keyboard</div>
-              <div class="subtab" data-subtab-content="mouse">Mouse</div>
-            </div>
-  
-            <!-- Keyboard -->
-            <div id="keyboard" class="subtabs-content active">
-              <div class="options scrollable-container">
-                <div class="option">
-                  <span>Macro feed</span>
-                  <input id="macroFeedKey" class="keyboard-input" value="KeyZ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Split</span>
-                  <input id="splitKey" class="keyboard-input" value="Space" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Double split</span>
-                  <input id="doubleSplitKey" class="keyboard-input" value="KeyA" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Split 16x</span>
-                  <input id="split16Key" class="keyboard-input" value="ShiftLeft" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Split 64x</span>
-                  <input id="split64Key" class="keyboard-input" value="" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Switch player</span>
-                  <input id="switchPlayerKey" class="keyboard-input" value="Tab" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Cell pausing</span>
-                  <input id="cellPausingKey" class="keyboard-input" value="KeyR" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-                <div class="option">
-                  <span>Push to talk</span>
-                  <input id="pushToTalkKey" class="keyboard-input" value="KeyT" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                </div>
-              </div>
-            </div>
-  
-            <!-- Mouse -->
-            <div id="mouse" class="subtabs-content">
-              <div class="options scrollable-container"></div>
-            </div>
-  
-          </div>
-  
-          <!-- Restore -->
-          <div id="restore" class="tabs-content"></div>
-  
-        </div>
-        <div class="support-me">
-          <a href="https://www.buymeacoffee.com/coderrenii" target="_blank" rel="noopener noreferrer"><img
-              src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=coderrenii&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
         </div>
       </div>
+   </div>
+
+  <!-- Gallery Display -->
+  <div id="gallery-display" class="pointer-events-all hidden">
+    <div id="gallery-display-center">
+      <div id="gallery">
+        <div id="settings-close-btn">✘</div>
+      </div>
     </div>
-  
-  
-    <script src="https://unpkg.com/gifler@latest/gifler.min.js"></script>
-    <script src="./assets/js/main.bundle.js"></script>
-  
-  </body>
-  
-  </html>
-  
+  </div>
+
+  <script>
+        toastr.options = {
+        'closeButton': true,
+        'debug': false,
+        'newestOnTop': false,
+        'progressBar': true,
+        'positionClass': 'toast-bottom-left',
+        'preventDuplicates': false,
+        'showDuration': '1000',
+        'hideDuration': '1000',
+        'timeOut': '5000',
+        'extendedTimeOut': '1000',
+        'showEasing': 'swing',
+        'hideEasing': 'linear',
+        'showMethod': 'fadeIn',
+        'hideMethod': 'fadeOut',
+    }
+  </script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div id="cf-turnstile" data-sitekey="0x4AAAAAAACWFDYFT_opGqX8"></div>
+
+  <script src="https://unpkg.com/gifler@latest/gifler.min.js"></script>
+  <script src="./assets/js/main.bundle.js"></script>
+
+</body>
+</html>
