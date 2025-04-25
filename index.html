@@ -1,265 +1,1068 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <base href="https://rebuild.ogarx.io/">
-  <meta charset="UTF-8">
+  <base href="https://members.ogarx.io/">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OgarX - The Arena Awaits. Can You Dominate?</title>
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" crossorigin="anonymous"
-    href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu:wght@400;700&family=Roboto:wght@400;700&family=Oswald:wght@400;700&family=Press+Start+2P&family=Pacifico&family=Titillium+Web&family=Exo+2:wght@400;600&family=Play:wght@400;700&display=swap">
-  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-  <link href="///cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/>
+  <title>Ogar✘ - The Arena Awaits. Can You Dominate?</title>
+  <link rel="icon" href="./assets/images/icon.ico" type="image/x-icon">
+  <link href="./assets/css/main.css" rel="stylesheet">
+  <!-- Toastr -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<body>
-  <!-- Game canvas -->
-  <canvas id="game-canvas"></canvas>
+<style>
+  /* Import Font Awesome */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-  <!-- Hud -->
-  <div id="hud" class="pointer-events-none visible">
+  /* Import Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+  @import url('./ui.css');
+  @import url('./settings.css');
+  @import url('./gallery.css');
+
+  :root {
+    --primary: #2A153D;
+    --primary-light: #4B2A6E;
+    --primary-dark: #1A0C26;
+    --accent: #8A4FFF;
+    --accent-light: #B189FF;
+    --accent-dark: #6A3AC7;
+    --text-light: #F0E6FF;
+    --text-dark: #180A1F;
+    --success: #5EFF5A;
+    --success-dark: #43C742;
+    --warning: #FFD600;
+    --warning-dark: #D9B500;
+    --danger: #FF5A5A;
+    --danger-dark: #C74242;
+  }
+
+  html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pointer-events-all {
+    pointer-events: all;
+  }
+
+  .pointer-events-none {
+    pointer-events: none;
+  }
+
+  .toast {
+    margin-top: 20px !important;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-family: 'Ubuntu', sans-serif;
+    overflow: hidden;
+    font-size: 18px;
+    background-color: var(--primary);
+    color: var(--text-light);
+  }
+
+  /* Game Display (Canvas) */
+  #game-display {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
     
-    <div id="top-left">
-      <!-- Teamboard -->
-      <div id="teamboard" class="visible">
-        <h2>Teamboard</h2>
-        <div id="teamboard-entries">
-          <span>Waiting for players..</span>
-        </div>
-      </div>
-    </div>
+  }
 
-    <div id="bottom-left">    
-      <!-- Chatbox -->
-      <div id="chatbox" class="pointer-events-all visible">
-        <div id="messages"></div>
-        <input type="text" id="chat-input" placeholder="Type a message...">
-      </div>
-      <!-- Stats -->
-      <div id="stats" class="visible"> 
-        <div id="fps" class="box">FPS: 0</div>
-        <div id="master-ts" class="box">
-          <span class="c-type">Master</span> 
-          <i class="fas fa-times"></i> Disconnected
-        </div>
+  /* Hud Display */
+  #hud-display {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+  }
 
-        <div id="child-ts" class="box">
-          <span class="c-type">Child</span> 
-          <i class="fas fa-times"></i> Disconnected
-        </div>
+  #hud-display.visible {
+    display: block;
+  }
 
-        <div id="reset" class="box"><i class="fa-solid fa-rotate-right"></i> 0 min</div>
-      </div>
-    </div>
+  #hud-display.hidden {
+    display: none;
+  }
+  /* Menu Display */
+  #menu-display {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    background-color: #2a153d41;
+  }
 
-    <div id="top-right">
-      <!-- Leaderboard -->
-      <div id="leaderboard" class="visible">
-        <h2>Leaderboard</h2>
-        <div id="leaderboard-entries">
-          <span>Waiting for players..</span>
-        </div>
-      </div>
-    </div>
+  #menu-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(138, 79, 255, 0.1) 0%, rgba(42, 21, 61, 0.1) 100%);
+    z-index: -1;
+  }
 
-    <div id="bottom-right">
-      <!-- Minimap -->
-      <canvas id="minimap" class="visible"></canvas>
-    </div>
+  #menu-display.visible {
+    display: block;
+  }
 
-    <!-- Abilities -->
-    <div id="abilities" class="visible">
-      <!-- Freeze Ability -->
-      <div class="ability ability-disabled" data-ability="freeze">
-          <div id="freezeCount" class="count no-ability">0</div>
-          <i class="fas fa-snowflake"></i> <!-- Freeze Icon -->
-          <div class="key">F</div>
-      </div>
-  
-      <!-- Virus Ability -->
-      <div class="ability ability-disabled" data-ability="virus">
-          <div id="virusCount" class="count no-ability">0</div>
-          <i class="fas fa-viruses"></i> <!-- Virus Icon -->
-          <div class="key">V</div>
-      </div>
-  
-      <!-- Speed Ability -->
-      <div class="ability ability-disabled" data-ability="speed">
-          <div id="speedCount" class="count no-ability">0</div>
-          <i class="fas fa-bolt"></i> <!-- Speed Icon -->
-          <div class="key">S</div>
-      </div>
-  
-      <!-- Shield Ability -->
-      <div class="ability ability-disabled" data-ability="shield">
-          <div id="shieldCount" class="count no-ability">0</div>
-          <i class="fas fa-shield-alt"></i> <!-- Shield Icon -->
-          <div class="key">D</div>
-      </div>
-    </div>
-  
+  #menu-display.hidden {
+    display: none;
+  }
+
+  #menu-display-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #leaderboard-canvas {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 10px;
+    background-color: rgba(42, 21, 61, 0.8);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.5);
+  }
+
+  #minimap-canvas {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 10px;
+    background-color: rgba(42, 21, 61, 0.8);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.5);
+  }
+
+  .menu-container {
+    display: grid;
+    place-items: center;
+    gap: 20px;
+    border-radius: 40px;
+    padding: 30px;
+    background-color: rgba(26, 12, 38, 0.85);
+    box-shadow: 0 0 30px rgba(138, 79, 255, 0.3);
+    border: 2px solid var(--accent-dark);
+    backdrop-filter: blur(5px);
+  }
+
+  /* ui */
+  .logo {
+    width: 320px;
+    filter: drop-shadow(0 0 10px rgba(138, 79, 255, 0.7));
+    margin-bottom: 10px;
+  }
+
+  .player-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .form-control {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid var(--accent);
+    padding: 12px 15px;
+    background-color: rgba(26, 12, 38, 0.7);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(138, 79, 255, 0.2);
+  }
+
+  .form-control::placeholder {
+    color: rgba(68, 51, 94, 0.5);
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--accent-light);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.5);
+  }
+
+  .input-nickname {
+    width: 52%;
+  }
+
+  .input-tag {
+    width: 22%;
+  }
+
+  .buttons-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+  }
+
+  .button {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-light);
+    border-radius: 12px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    padding: 12px 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .button i {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .gallery-button {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    line-height: 90px;
+    padding: 0;
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent-dark) 100%);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(138, 79, 255, 0.5);
+  }
+
+  .gallery-button .plus {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    background-image: url('https://scrux.io/plus.8976a56d.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .gallery-button:hover {
+    background: linear-gradient(to bottom, var(--accent-light) 0%, var(--accent) 100%);
+  }
+
+  .play-button {
+    width: 200px;
+    background: linear-gradient(to bottom, var(--success) 0%, var(--success-dark) 100%);
+    border: none;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .play-button:hover {
+    background: linear-gradient(to bottom, #7AFF76 0%, #5BDC5A 100%);
+  }
+
+  .spectate-button {
+    background: linear-gradient(to bottom, var(--warning) 0%, var(--warning-dark) 100%);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .spectate-button:hover {
+    background: linear-gradient(to bottom, #FFDF4D 0%, #E5C82C 100%);
+  }
+
+  .settings-button {
+    background: linear-gradient(to bottom, var(--primary-light) 0%, var(--primary) 100%);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .settings-button:hover {
+    background: linear-gradient(to bottom, #5C377F 0%, #422460 100%);
+  }
+
+  .restart-button {
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent-dark) 100%);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .restart-button:hover {
+    background: linear-gradient(to bottom, var(--accent-light) 0%, var(--accent) 100%);
+  }
+
+  .server-select {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .server-select-input {
+    width: 280px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-light);
+    padding: 12px 15px;
+    background: linear-gradient(to bottom, var(--primary-light) 0%, var(--primary) 100%);
+    border: 2px solid var(--accent-dark);
+    border-radius: 12px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .server-select-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.5);
+  }
+
+  .server-select-input option {
+    background-color: var(--primary);
+    color: var(--text-light);
+  }
+
+  /* settings */
+  #settings-display {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    backdrop-filter: blur(5px);
+  }
+
+  #settings-display.visible {
+    display: block;
+  }
+
+  #settings-display.hidden {
+    display: none;
+  }
+
+  #settings-display-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #settings {
+    width: 580px;
+    height: 520px;
+    position: relative;
+    color: var(--text-light);
+    background-color: var(--primary-dark);
+    border-radius: 20px;
+    border: 2px solid var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(138, 79, 255, 0.4);
+  }
+
+  #settings-close-btn {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: -12px;
+    top: -12px;
+    color: var(--text-light);
+    font-size: 18px;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--danger);
+    border: 2px solid var(--danger-dark);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  #settings-close-btn:hover {
+    background-color: var(--danger-dark);
+    transform: scale(1.1);
+  }
+
+  #settings-container {
+    padding: 20px;
+  }
+
+  #settings .tabs {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  #settings .tab {
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: var(--primary);
+    font-size: 16px;
+    color: var(--text-light);
+    border: 1px solid var(--primary-light);
+    background: linear-gradient(to bottom, var(--primary-light) 0%, var(--primary) 100%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #settings .tab i {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  #settings .tab.active {
+    border-color: var(--accent);
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent-dark) 100%);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.4);
+  }
+
+  #settings .tab:hover {
+    border-color: var(--accent);
+    background: linear-gradient(to bottom, var(--accent-light) 0%, var(--accent) 100%);
+  }
+
+  #settings .tabs-container {
+    max-height: 420px;
+    margin-top: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--primary-dark);
+    padding-right: 5px;
+    border-radius: 10px;
+    background-color: rgba(26, 12, 38, 0.3);
+  }
+
+  #settings .tabs-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  #settings .tabs-container::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 4px;
+  }
+
+  #settings .tabs-container::-webkit-scrollbar-track {
+    background-color: var(--primary-dark);
+    border-radius: 4px;
+  }
+
+  #settings .tab-content {
+    display: none;
+  }
+
+  #settings .tab-content.active {
+    display: block;
+  }
+
+  #settings .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 16px;
+    color: var(--text-light);
+    background-color: rgba(75, 42, 110, 0.3);
+    border-bottom: 1px solid rgba(138, 79, 255, 0.2);
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+  }
+
+  #settings .option:hover {
+    background-color: rgba(75, 42, 110, 0.5);
+  }
+
+  #settings .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  #settings .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  #settings .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary);
+    border-radius: 26px;
+    transition: 0.4s;
+    border: 2px solid var(--primary-light);
+  }
+
+  #settings .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 3px;
+    background-color: var(--text-light);
+    border-radius: 50%;
+    transition: 0.4s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  #settings input:checked + .slider {
+    background-color: var(--accent);
+    border-color: var(--accent-dark);
+  }
+
+  #settings input:checked + .slider:before {
+    transform: translateX(22px);
+  }
+
+  /* Styling the range slider */
+  .setting-slider {
+    -webkit-appearance: none;
+    width: 140px;
+    height: 8px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: 1px solid var(--primary-light);
+  }
+
+  .setting-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .setting-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .setting-slider:hover {
+    background-color: var(--primary-light);
+  }
+
+  .setting-slider::-webkit-slider-thumb:hover {
+    background-color: var(--accent-light);
+  }
+
+  .setting-slider::-moz-range-thumb:hover {
+    background-color: var(--accent-light);
+  }
+
+  .slider-value {
+    font-size: 14px;
+    text-align: center;
+    padding: 4px 8px;
+    margin-left: 8px;
+    border-radius: 5px;
+    background-color: var(--accent);
+    color: var(--text-light);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  #settings .hotkey-input {
+    width: 35%;
+    text-align: center;
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: var(--primary);
+    border: 2px solid var(--primary-light);
+    outline: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #settings .hotkey-input.selected {
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.4);
+  }
+
+  #settings .mouseActions {
+    width: 45%;
+    text-align: center;
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: var(--primary);
+    border: 2px solid var(--primary-light);
+    outline: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #settings .mouseActions:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.4);
+  }
+
+  /* Animation effects */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(138, 79, 255, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(138, 79, 255, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(138, 79, 255, 0);
+    }
+  }
+
+  .play-button {
+    animation: pulse 2s infinite;
+  }
+
+  /* Gallery display */
+  #gallery-display {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(26, 12, 38, 0.8);
+    backdrop-filter: blur(5px);
+  }
+
+  #gallery-display.visible {
+    display: block;
+  }
+
+  #gallery-display.hidden {
+    display: none;
+  }
+
+  #gallery-display-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+  }
+
+  #gallery {
+    width: 680px;
+    height: 520px;
+    position: relative;
+    color: var(--text-light);
+    background-color: var(--primary-dark);
+    border-radius: 20px;
+    border: 2px solid var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(138, 79, 255, 0.4);
+    padding: 20px;
+  }
+
+  /* Enhancing the CF Turnstile */
+  #cf-turnstile {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    filter: drop-shadow(0 0 5px rgba(138, 79, 255, 0.5));
+  }
+</style>
+<body>
+  <!-- Game Display -->
+  <canvas id="game-display"></canvas>
+
+  <!-- Hud Display -->
+  <div id="hud-display" class="pointer-events-none visible" style="background-color: black;">
+    <canvas id="leaderboard-canvas" width="200">
+  </div>
+  <canvas id="minimap-canvas"></canvas>
   </div>
 
-  <!-- Main menu-->
-  <div id="main-menu" class="pointer-events-all visible">
-    <div id="menu-center">
-      <div id="logo-container">
-        <img src="./assets/images/ogarx.png"></img>
-      </div>
-      <div id="menu-panel">
-        <div id="menu-tabs">
-          <div class="tab active" data-tab-content="start"><i class="fas fa-home"></i> Start</div>
-          <div class="tab" data-tab-content="settings"><i class="fas fa-cog"></i> Settings</div>
-          <div class="tab" data-tab-content="theme"><i class="fas fa-tint"></i> Theme</div>
-          <div class="tab" data-tab-content="controls"><i class="fas fa-keyboard"></i> Controls</div>
-          <div class="tab" data-tab-content="restore"><i class="fas fa-undo"></i> Restore</div>
+  <!-- Menu Display -->
+  <div id="menu-display" class="pointer-events-all visible">
+    <div id="menu-display-center">
+      <div class="menu-container">
+        <img class="logo" src="./assets/images/ogarx.png">
+        <div class="player-skins">
+          <!--<div class="gallery-button button">
+            Skins
+            <div class="plus"></div>
+          </div>-->
         </div>
+        <div class="player-inputs">
+          <input id="tag" class="form-control input-tag" placeholder="Tag" maxlength="5">
+          <input id="nickname" class="form-control input-nickname" placeholder="Nickname" maxlength="15">
+        </div>
+        <div class="player-inputs">
+          <input id="skin1" class="form-control input-nickname" placeholder="Skin 1 url">
+          <input id="skin2" class="form-control input-nickname" placeholder="Skin 2 url">
+        </div>
+        <div class="server-select">
+          <select class="server-select-input" id="servers">
+            <option value="wss://eu.senpa.io:2001/" selected>[EU FFA] Nemesis</option>
+            <option value="wss://us.senpa.io:2001/">[NA FFA] Heavenly</option>
+          </select>
+          <div id="restart" class="restart-button button"><i class="fas fa-redo-alt"></i></div>
+        </div>
+        <div class="buttons-group">
+          <div id="open-settings" class="settings-button button"><i class="fas fa-cog"></i></div>
+          <div id="play" class="play-button button"><i class="fas fa-play"></i> Play!</div>
+          <div id="spectate" class="spectate-button button"><i class="fa-solid fa-eye"></i></div><br>
+        </div>
+        <h2>𝒲𝓎𝓃𝓃 𝐹𝒶𝓂𝒾𝓁𝓎</h2>
+      </div>
+    </div>
+  </div>
 
-        <!-- Start -->
-        <div id="start" class="tabs-content active">
-          <div class="subtabs">
-            <div class="subtab active" data-subtab-content="play">Play</div>
-            <div class="subtab" data-subtab-content="skins">Change skin</div>
-            <div class="subtab" data-subtab-content="account">Account</div>
+  <!-- Settings Display -->
+  <div id="settings-display" class="pointer-events-all hidden">
+    <div id="settings-display-center">
+      <div id="settings">
+        <div id="settings-close-btn">✘</div>
+        <div id="settings-container">
+          <div class="tabs">
+            <div class="tab active" data-tab="game-settings"><i class="fas fa-cog"></i>Game</div>
+            <div class="tab" data-tab="controls"><i class="fas fa-keyboard"></i>Controls</div>
+            <div class="tab" data-tab="mouse"><i class="fas fa-mouse"></i>Mouse</div>
           </div>
-
-          <div id="play" class="subtabs-content active">
-            <div id="play-container">
-              <!-- Game modes -->
-              <div class="game-modes">
-                <div class="mode selected" data-mode="ffa">
-                  <img class="mode-img" src="./assets/images/modes/ffa.png">
-                  <div class="mode-name">Free For All</div>
-                </div>
-                <div class="mode" data-mode="exp">
-                  <img class="mode-img" src="./assets/images/modes/exp.png">
-                  <div class="mode-name">Experimental</div>
-                </div>
-                <div class="mode" data-mode="teams">
-                  <img class="mode-img" src="./assets/images/modes/teams.png">
-                  <div class="mode-name">Teams</div>
-                </div>
-                <div class="mode" data-mode="party">
-                  <img class="mode-img" src="./assets/images/modes/party.png">
-                  <div class="mode-name">Party</div>
-                </div>
-                <div class="mode" data-mode="instant">
-                  <img class="mode-img" src="./assets/images/modes/instant.png">
-                  <div class="mode-name">Instant</div>
-                </div>
-                <div class="mode" data-mode="megasplit">
-                  <img class="mode-img" src="./assets/images/modes/megasplit.png">
-                  <div class="mode-name">Megasplit</div>
-                </div>
+          <div class="tabs-container">
+            <div class="tab-content active" id="game-settings">
+              <div class="option">
+                <span>Animation delay: <span class="slider-value" id="animationDelayValue">144</span></span>
+                <input type="range" class="setting-slider" id="animationDelay" min="10" max="200" value="140">
               </div>
-              <!-- Servers -->
-              <div class="servers">
-                <select class="select" id="regions">
-                  <option value="europe" selected>Europe</option>
-                  <option value="nort-america">North America</option>
+              <div class="option">
+                <span>Cell transparency: <span class="slider-value" id="cellTransparencyValue">1</span></span>
+                <input type="range" class="setting-slider" id="cellTransparency" min="0.2" max="1" value="1" step="0.1">
+              </div>
+              <div class="option">
+                <span>Nicknames:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showNicknames">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Mass:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showMass">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Skins:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showSkins">
+                  <span class="
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Grid:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showGrid">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Sectors:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showSectors">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Show pellets:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showPellets">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Cursor tracking:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cursorTracking">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Multibox auto switch on death:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="multiboxAutoSwitchOnDeath">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="option">
+                <span>Debug mode:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="showDebug">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="tab-content" id="controls">
+              <div class="option">
+                <span>Macro feed:</span>
+                <input id="macroFeedKey" class="hotkey-input" value="KeyZ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Split:</span>
+                <input id="splitKey" class="hotkey-input" value="Space" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Doublesplit:</span>
+                <input id="doubleSplitKey" class="hotkey-input" value="KeyA" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Tricksplit:</span>
+                <input id="tricksplitKey" class="hotkey-input" value="ShiftLeft" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Switch player:</span>
+                <input id="switchPlayerkey" class="hotkey-input" value="Tab" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Bot split:</span>
+                <input id="botSplit" class="hotkey-input" value="KeyQ" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Bot feed:</span>
+                <input id="botFeed" class="hotkey-input" value="KeyW" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div class="option">
+                <span>Cell pause:</span>
+                <input id="cellPause" class="hotkey-input" value="KeyR" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+            </div>
+            <div class="tab-content" id="mouse">
+              <div class="option">
+                <span>Left click:</span>
+                <select class="mouseActions" id="leftClick">
+                  <option value="noAction">No action</option>
+                  <option value="macroFeed">Macro Feed</option>
+                  <option value="split">Split</option>
+                  <option value="doubleSplit">Doublesplit</option>
+                  <option selected value="tricksplit">Tricksplit</option>
+                  <option value="switchPlayer">Switch player</option>
+                  <option value="magicSplit">Magic split</option>
                 </select>
-                <select class="select" id="servers">
-                  <option value="wss://eu.senpa.io:2001/" selected>Nemesis</option>
-                  <option value="wss://us.senpa.io:2001/">Heavenly</option>
+              </div>
+              <div class="option">
+                <span>Middle click:</span>
+                <select class="mouseActions" id="middleClick">
+                  <option selected="noAction">No action</option>
+                  <option value="macroFeed">Macro Feed</option>
+                  <option value="split">Split</option>
+                  <option value="doubleSplit">Doublesplit</option>
+                  <option value="tricksplit">Tricksplit</option>
+                  <option value="switchPlayer">Switch player</option>
+                  <option value="magicSplit">Magic split</option>
                 </select>
-                <input type="text" id="team" class="input-team" placeholder="Team" maxlength="5">
               </div>
-              
-              <!-- Players -->
-              <div class="players">
-                <div class="player player-1">
-                  <div class="skin">
-                    <img src="https://i.imgur.com/FEMjYXK.png">
-                  </div>
-                  <input type="text" id="nickname1" class="input-nickname" placeholder="Nickname 1" maxlength="15">
-                </div>
-
-                <div class="player player-2">
-                  <input type="text" id="nickname2" class="input-nickname" placeholder="Nickname 2" maxlength="15">
-                  <div class="skin">
-                    <img src="https://i.imgur.com/FEMjYXK.png">
-                  </div>
-                </div>
+              <div class="option">
+                <span>Right click:</span>
+                <select class="mouseActions" id="rightClick">
+                  <option selected value="noAction">No action</option>
+                  <option value="macroFeed">Macro Feed</option>
+                  <option value="split">Split</option>
+                  <option value="doubleSplit">Doublesplit</option>
+                  <option value="tricksplit">Tricksplit</option>
+                  <option value="switchPlayer">Switch player</option>
+                  <option value="magicSplit">Magic split</option>
+                </select>
               </div>
-
-              <div class="player-buttons">
-                <div id="playButton" class="button"><i class="fas fa-play spacer"></i> Play</div>
-                <div id="spectateButton" class="button"><i class="fa-solid fa-eye spacer"></i> Spectate</div>
-                <div id="reconnectButton" class="button reconnect"><i class="fas fa-redo-alt spacer"></i> Reconnect</div>
-              </div>
-
             </div>
           </div>
-          <div id="skins" class="subtabs-content"></div>
-          <div id="account" class="subtabs-content"></div>
         </div>
-
-        <!-- Settings -->
-        <div id="settings" class="tabs-content">
-          <div class="subtabs">
-            <div class="subtab active" data-subtab-content="gameplay">Gameplay</div>
-            <div class="subtab" data-subtab-content="cells">Cells</div>
-            <div class="subtab" data-subtab-content="elements">Elements</div>
-            <div class="subtab" data-subtab-content="camera">Camera</div>
-            <div class="subtab" data-subtab-content="helpers">Helpers</div>
-          </div>
-
-          <div id="gameplay" class="subtabs-content active">
-            <div id="gameplayOptions" class="options scrollable-container"></div>
-          </div>
-          <div id="cells" class="subtabs-content">
-            <div id="cellsOptions" class="options scrollable-container"></div>
-          </div>
-          <div id="elements" class="subtabs-content">
-            <div id="elementsOptions" class="options scrollable-container"></div>
-          </div>
-          <div id="camera" class="subtabs-content">
-            <div id="cameraOptions" class="options scrollable-container"></div>
-          </div>
-          <div id="helpers" class="subtabs-content">
-            <div id="helpersOptions" class="options scrollable-container"></div>
-          </div>
-        </div>
-
-        <!-- Theme -->
-        <div id="theme" class="tabs-content"></div>
-        
-        <!-- Controls -->
-        <div id="controls" class="tabs-content">
-          <div class="subtabs">
-            <div class="subtab active" data-subtab-content="keyboard">Keyboard</div>
-            <div class="subtab" data-subtab-content="mouse">Mouse</div>
-          </div>
-
-          <div id="keyboard" class="subtabs-content active">
-            <div id="keyboardOptions" class="options scrollable-container"></div>
-          </div>
-          <div id="mouse" class="subtabs-content"></div>
-
-        </div>
-
-        <!-- Restore -->
-        <div id="restore" class="tabs-content"></div>
-
-      </div>
-      <div class="support-me">
-        <a href="https://www.buymeacoffee.com/coderrenii" target="_blank" class="buymeacoffee">
-          <i class="fas fa-coffee"></i> Buy me a coffee
-        </a>
-        <a href="https://discord.gg/WMzTgPWuFY" target="_blank" class="discord">
-          <i class="fab fa-discord"></i> Join us on Discord
-        </a>
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  <script src="assets/js/main.bundle.js"></script>
-  <script src="../src/game/app.js" type="module"></script>
+
+  <!-- Gallery Display -->
+  <div id="gallery-display" class="pointer-events-all hidden">
+    <div id="gallery-display-center">
+      <div id="gallery">
+        <div id="settings-close-btn">✘</div>
+        <div class="gallery-container">
+          <!-- Gallery content will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    toastr.options = {
+      'closeButton': true,
+      'debug': false,
+      'newestOnTop': false,
+      'progressBar': true,
+      'positionClass': 'toast-bottom-left',
+      'preventDuplicates': false,
+      'showDuration': '1000',
+      'hideDuration': '1000',
+      'timeOut': '5000',
+      'extendedTimeOut': '1000',
+      'showEasing': 'swing',
+      'hideEasing': 'linear',
+      'showMethod': 'fadeIn',
+      'hideMethod': 'fadeOut',
+    }
+
+    // Add some subtle animations and effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate the menu container on load
+      const menuContainer = document.querySelector('.menu-container');
+      if (menuContainer) {
+        menuContainer.style.opacity = '0';
+        menuContainer.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          menuContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          menuContainer.style.opacity = '1';
+          menuContainer.style.transform = 'translateY(0)';
+        }, 200);
+      }
+
+      // Add hover effects to form controls
+      const formControls = document.querySelectorAll('.form-control');
+      formControls.forEach(control => {
+        control.addEventListener('focus', function() {
+          this.style.transform = 'scale(1.02)';
+        });
+        
+        control.addEventListener('blur', function() {
+          this.style.transform = 'scale(1)';
+        });
+      });
+
+      // Add click effect to buttons
+      const buttons = document.querySelectorAll('.button');
+      buttons.forEach(button => {
+        button.addEventListener('mousedown', function() {
+          this.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('mouseup', function() {
+          this.style.transform = 'scale(1)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1)';
+        });
+      });
+
+      // Tab switching functionality
+      const tabs = document.querySelectorAll('#settings .tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          
+          // Remove active class from all tabs and content
+          document.querySelectorAll('#settings .tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('#settings .tab-content').forEach(c => c.classList.remove('active'));
+          
+          // Add active class to clicked tab and corresponding content
+          this.classList.add('active');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+
+      // Update slider values in real-time
+      const sliders = document.querySelectorAll('.setting-slider');
+      sliders.forEach(slider => {
+        const valueDisplay = document.getElementById(slider.id + 'Value');
+        
+        slider.addEventListener('input', function() {
+          valueDisplay.textContent = this.value;
+        });
+      });
+    });
+  </script>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <div id="cf-turnstile" data-sitekey="0x4AAAAAAACWFDYFT_opGqX8"></div>
+
+  <script src="https://unpkg.com/gifler@latest/gifler.min.js"></script>
+  <!-- <script src="./assets/js/main.bundle.js"></script> -->
 </body>
 </html>
